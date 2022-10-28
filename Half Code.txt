@@ -1,0 +1,125 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+class Game extends JFrame {
+//Create label for ComputerChoice and for result
+    JLabel computerChoice,result;
+//Create label for displaying score
+    JLabel ComputerScore,PlayerScore;
+    int Computer_Score=0;
+    int Player_Score=0;
+
+        ImageIcon image_rock, image_paper, image_scissor;
+
+        public void setup() {
+            image_rock = new ImageIcon(new ImageIcon("rock.png").getImage().
+                    getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+            image_paper = new ImageIcon(new ImageIcon("paper.png").getImage()
+                    .getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+            image_scissor = new ImageIcon(new ImageIcon("scissors.png").getImage()
+                    .getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+//create label
+
+            JLabel score=new JLabel("Score");
+            score.setBounds(500,0,100,100);
+
+            ComputerScore=new JLabel();
+            ComputerScore.setText("Computer : 0");
+            ComputerScore.setBounds(500,15,100,100);
+
+            PlayerScore=new JLabel();
+            PlayerScore.setText("Player: 0");
+            PlayerScore.setBounds(500,30,100,100);
+
+            computerChoice=new JLabel();
+            computerChoice.setHorizontalTextPosition(JLabel.CENTER);
+            computerChoice.setVerticalTextPosition(JLabel.BOTTOM);
+            computerChoice.setBounds(250,90,100,100);
+
+            result=new JLabel();
+            result.setFont(new Font("Serif",Font.BOLD,20));
+            result.setBounds(250,450,100,100);
+
+            JLabel label_rock = new JLabel();
+            label_rock.setText("Rock");
+            label_rock.setIcon(image_rock); //set icon
+            label_rock.setHorizontalTextPosition(JLabel.CENTER);
+            label_rock.setVerticalTextPosition(JLabel.BOTTOM);
+            label_rock.setBounds(100, 300, 100, 100);
+
+            JLabel label_paper = new JLabel();
+            label_paper.setText("Paper");
+            label_paper.setIcon(image_paper); //set icon
+            label_paper.setHorizontalTextPosition(JLabel.CENTER);
+            label_paper.setVerticalTextPosition(JLabel.BOTTOM);
+            label_paper.setBounds(250, 300, 100, 100);
+
+            JLabel label_scissor = new JLabel();
+            label_scissor.setText("Scissor");
+            label_scissor.setIcon(image_scissor); //set icon
+            label_scissor.setHorizontalTextPosition(JLabel.CENTER);
+            label_scissor.setVerticalTextPosition(JLabel.BOTTOM);
+            label_scissor.setBounds(400, 300, 100, 100);
+//Add MouseListener to Labels
+            label_rock.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+//call calculate method
+                    calculate(label_rock.getText());
+                }
+            });
+            label_paper.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+//call calculate method
+                    calculate(label_paper.getText());
+                }
+            });
+            label_scissor.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+//call calculate method
+                    calculate(label_scissor.getText());
+                }
+            });
+
+//Add components in frame
+            add(label_rock);
+            add(label_paper);
+            add(label_scissor);
+            add(computerChoice);
+            add(result);
+            setLayout(null);
+
+
+        }
+    public void calculate(String player){
+            String[] list={"Rock","Paper","Scissor"};
+            int random_choice=(int)((Math.random()*10)%3); //for computer choices
+            String computer=list[random_choice];
+//Display computer choice on frame
+        computerChoice.setText(computer);
+        if(random_choice==0){
+            computerChoice.setIcon(image_rock);
+        }
+        else if(random_choice==1)
+        {
+            computerChoice.setIcon(image_paper);
+        }
+        else{
+            computerChoice.setIcon(image_scissor);
+        }
+
+    }
+    public static void main(String[] args) { //create frame
+        Game g = new Game();
+        g.setTitle("ROCK PAPER SCISSOR");
+        g.setBounds(200, 200, 600, 600);
+        g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        g.getContentPane().setBackground(Color.WHITE);
+        g.setup();
+        g.setResizable(false);
+        g.setVisible(true);
+
+
+    }
+}
